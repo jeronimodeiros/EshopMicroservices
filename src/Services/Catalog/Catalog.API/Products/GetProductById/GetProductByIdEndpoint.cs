@@ -1,6 +1,7 @@
-﻿namespace Catalog.API.Products.GetProductById;
-
-
-public class GetProductByIdEndpoint
+namespace Catalog.API.Products.GetProductById
 {
+    public class GetProductByIdEndpoint
+    {
+    }
+
 }
