@@ -11,9 +11,10 @@ namespace Catalog.API.Products.CreateProduct
     public class CreateProductEndpoint : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
-        {   
+        {
             /*
-             * en esta funcion vamos a definir nuestro HTTP Post endpoint utilizando
+             * en esta funcion (AddRoutes, que es de Carter, definida en ICarterModule),
+             * vamos a definir nuestro HTTP Post endpoint utilizando
              * Carter y Mapster. Y luego vamos a asignar nuestra request a un objeto
              * de command y despues lo enviaremos a traves del mediatr. luego mapearemos
              * el resultado de vuelta al modelo de response.
