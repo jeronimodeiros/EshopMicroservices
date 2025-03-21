@@ -18,6 +18,6 @@ public class GetBasketEndpoints : ICarterModule
             .Produces<GetBasketResponse>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .WithSummary("Get Products By Id")
-            .WithDescription("Get Products By Id"); ;
+            .WithDescription("Get Products By Id");
     }
 }
