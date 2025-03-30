@@ -12,12 +12,12 @@ public class GetBasketEndpoints : ICarterModule
             {
                 var result = await sender.Send(new GetBasketQuery(userName));
                 var response = result.Adapt<GetBasketResponse>();
-                return Results.Ok((response));
+                return Results.Ok(response);
             })
-            .WithName("GetProductsById")
+            .WithName("GetProductById")
             .Produces<GetBasketResponse>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .WithSummary("Get Products By Id")
-            .WithDescription("Get Products By Id");
+            .WithSummary("Get Product By Id")
+            .WithDescription("Get Product By Id");
     }
 }
