@@ -2,7 +2,7 @@
 
 //public record GetBasketRequest(string UserName);
 
-public record GetBasketResponse(string Cart);
+public record GetBasketResponse(ShoppingCart Cart);
 
 public class GetBasketEndpoints : ICarterModule
 {
