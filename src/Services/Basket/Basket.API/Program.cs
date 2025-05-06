@@ -64,7 +64,6 @@ builder.Services.AddStackExchangeRedisCache(options =>
 });
 
 //Grpc Services
-//TODO: Add Grpc Services
 builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(options =>
 {
     options.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]!);
