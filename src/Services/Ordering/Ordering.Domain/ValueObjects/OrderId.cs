@@ -1,6 +1,7 @@
 ﻿namespace Ordering.Domain.ValueObjects;
 
-public record OrderId
+public readonly record struct OrderId : IEquatable<OrderId>
 {
-    public Guid Value { get; }
+    public Guid Value { get; init; }
+    public override string ToString() => Value.ToString();
 }
