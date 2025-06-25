@@ -1,3 +1,17 @@
 ﻿namespace Ordering.Domain.ValueObjects;
 
-public record struct OrderItemId(Guid Value); // Changed to 'record struct' to make it a non-nullable value type.
+public record OrderItemId
+{
+    public Guid Value { get; }
+    private OrderItemId(Guid value) => Value = value;
+    public static OrderItemId Of(Guid value)
+    {
+        ArgumentNullException.ThrowIfNull(value, nameof(value));
+
+        if (value == Guid.Empty)
+        {
+            throw new DomainException("OrderItemId cannot be empty.");
+        }
+        return new OrderItemId(value);
+    }
+}

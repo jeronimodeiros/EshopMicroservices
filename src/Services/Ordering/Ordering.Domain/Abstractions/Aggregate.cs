@@ -2,7 +2,6 @@
 namespace Ordering.Domain.Abstractions;
 
 public abstract class Aggregate<TId> : Entity<TId>, IAggregate<TId>
-  where TId : struct // Ensure TId is a non-nullable value type
 {
     private readonly List<IDomainEvent> _domainEvents = new();
 
