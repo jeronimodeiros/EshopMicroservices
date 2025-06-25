@@ -13,9 +13,7 @@ public class Customer : Entity<CustomerId>
         {
             Id = id,
             Name = name,
-            Email = email,
-            CreatedAt = DateTime.UtcNow,
-            CreatedBy = "System"
+            Email = email
         };
     }
 }
