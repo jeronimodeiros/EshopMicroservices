@@ -7,18 +7,19 @@ public record Address
     public string? EmailAddress { get; } = default!;
     public string AddressLine { get; } = default!;
     public string State { get; } = default!;
-    public string ZipCode { get; } = default!;
-    public string Country { get; } = default!;
+	public string Country { get; } = default!;
+	public string ZipCode { get; } = default!;
+    
     protected Address() { }
-    private Address(string firstName, string lastName, string? emailAddress, string addressLine, string state, string zipCode, string country)
+    private Address(string firstName, string lastName, string? emailAddress, string addressLine, string state, string country, string zipCode)
     {
         FirstName = firstName;
         LastName = lastName;
         EmailAddress = emailAddress;
         AddressLine = addressLine;
         State = state;
-        ZipCode = zipCode;
-        Country = country;
+		Country = country;
+		ZipCode = zipCode;        
     }
     public static Address Of(
         string firstName,
@@ -26,8 +27,9 @@ public record Address
         string? emailAddress,
         string addressLine,
         string state,
-        string zipCode,
-        string country)
+		string country,
+		string zipCode
+        )
     {
         //ArgumentException.ThrowIfNullOrWhiteSpace(firstName, nameof(firstName));
         //ArgumentException.ThrowIfNullOrWhiteSpace(lastName, nameof(lastName));
@@ -36,6 +38,6 @@ public record Address
         //ArgumentException.ThrowIfNullOrWhiteSpace(state, nameof(state));
         //ArgumentException.ThrowIfNullOrWhiteSpace(zipCode, nameof(zipCode));
         //ArgumentException.ThrowIfNullOrWhiteSpace(country, nameof(country));
-        return new Address(firstName, lastName, emailAddress, addressLine, state, zipCode, country);
+        return new Address(firstName, lastName, emailAddress, addressLine, state, country, zipCode);
     }
 }
