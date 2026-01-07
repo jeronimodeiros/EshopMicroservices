@@ -9,8 +9,13 @@ public class Order : Aggregate<OrderId>
     public Address BillingAddress { get; private set; } = default!;
     public Payment Payment { get; private set; } = default!;
     public OrderStatus Status { get; private set; } = OrderStatus.Pending;
-    public decimal TotalPrice => _orderItems.Sum(item => item.Price * item.Quantity);
-    public static Order Create(
+	private decimal _totalPrice;
+	public decimal TotalPrice
+	{
+		get => _orderItems.Sum(item => item.Price * item.Quantity);
+		private set => _totalPrice = value;
+	}
+	public static Order Create(
         OrderId id,
         CustomerId customerId,
         OrderName orderName,
@@ -44,16 +49,24 @@ public class Order : Aggregate<OrderId>
         AddDomainEvent(new OrderUpdatedEvent(this));
     }
 
-    public void Add(ProductId productId, decimal price, int quantity)
-    {
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity, nameof(quantity));
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price, nameof(price));
-        var orderItem = new OrderItem(Id, productId, price, quantity);
-        _orderItems.Add(orderItem);
-        //AddDomainEvent(new OrderItemAddedEvent(this, orderItem));
-    }
+	//public void Add(OrderId orderId, ProductId productId, decimal price, int quantity)
+	//{
+	//    ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity, nameof(quantity));
+	//    ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price, nameof(price));
+	//    var orderItem = new OrderItem(orderId, productId, price, quantity);
+	//    _orderItems.Add(orderItem);
+	//    //AddDomainEvent(new OrderItemAddedEvent(this, orderItem));
+	//}
+	public void Add(ProductId productId, decimal price, int quantity)
+	{
+		ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity, nameof(quantity));
+		ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price, nameof(price));
+		var orderItem = new OrderItem(Id, productId, price, quantity);
+		_orderItems.Add(orderItem);
+		//AddDomainEvent(new OrderItemAddedEvent(this, orderItem));
+	}
 
-    public void Remove(ProductId productId)
+	public void Remove(ProductId productId)
     {
         var orderItem = _orderItems.FirstOrDefault(item => item.ProductId.Equals(productId));
         if (orderItem is not null)
