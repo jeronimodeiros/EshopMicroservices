@@ -1,5 +1,2 @@
-﻿namespace Ordering.Application;
-
-internal class GlobalUsing
-{
-}
+﻿global using Ordering.Domain.Models;
+global using Ordering.Domain.ValueObjects;

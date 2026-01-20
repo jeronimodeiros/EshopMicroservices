@@ -48,7 +48,7 @@ public class Order : Aggregate<OrderId>
     }
 
     // cuando agregues o elimines items actualiza _totalPrice
-    public void Add(ProductId productId, decimal price, int quantity)
+    public void Add(ProductId productId, int quantity, decimal price)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity, nameof(quantity));
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price, nameof(price));
