@@ -22,11 +22,35 @@ internal class InitialData
 		get
 		{
 			// Create separate instances for shipping and billing even if values are equal
-			var shipping1 = Address.Of("mehmet", "ozkaya", "mehmet@gmail.com", "Bahcelievler No:4", "Turkey", "Istanbul", "38050");
-			var billing1 = Address.Of("mehmet", "ozkaya", "mehmet@gmail.com", "Bahcelievler No:4", "Turkey", "Istanbul", "38050");
+			var shipping1 = Address.Of("mehmet", "ozkaya", "mehmet@gmail.com",
+								"Bahcelievler No:4",
+								state: "Istanbul",         // correct order
+								zipCode: "38050",
+								country: "Turkey");
 
-			var shipping2 = Address.Of("john", "doe", "john@gmail.com", "Broadway No:1", "England", "Nottingham", "08050");
-			var billing2 = Address.Of("john", "doe", "john@gmail.com", "Broadway No:1", "England", "Nottingham", "08050");
+										var billing1 = Address.Of("mehmet", "ozkaya", "mehmet@gmail.com",
+								"Bahcelievler No:4",
+								state: "Istanbul",
+								zipCode: "38050",
+								country: "Turkey");
+
+			var shipping2 = Address.Of(
+				  firstName: "john",
+				  lastName: "doe",
+				  emailAddress: "john@gmail.com",
+				  addressLine: "Broadway No:1",
+				  state: "Nottingham",
+				  zipCode: "08050",
+				  country: "England");
+
+			var billing2 = Address.Of(
+				  firstName: "john",
+				  lastName: "doe",
+				  emailAddress: "john@gmail.com",
+				  addressLine: "Broadway No:1",
+				  state: "Nottingham",
+				  zipCode: "08050",
+				  country: "England");
 
 			var payment1 = Payment.Of("mehmet", "5555555555554444", "12/28", "355", 1);
 			var payment2 = Payment.Of("john", "8885555555554444", "06/30", "222", 2);
