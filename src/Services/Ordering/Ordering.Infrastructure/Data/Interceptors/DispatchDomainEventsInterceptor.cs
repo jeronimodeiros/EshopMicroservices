@@ -2,8 +2,8 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Ordering.Infrastructure.Data.Interceptors;
-
-internal class DispatchDomainEventsInterceptor(IMediator mediator) : SaveChangesInterceptor
+public class DispatchDomainEventsInterceptor(IMediator mediator)
+	: SaveChangesInterceptor
 {
 	public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
 	{
@@ -17,20 +17,20 @@ internal class DispatchDomainEventsInterceptor(IMediator mediator) : SaveChanges
 		return await base.SavingChangesAsync(eventData, result, cancellationToken);
 	}
 
-	private async Task DispatchDomainEvents(DbContext? context)
+	public async Task DispatchDomainEvents(DbContext? context)
 	{
-		if(context == null) return;
+		if (context == null) return;
 
 		var aggregates = context.ChangeTracker
 			.Entries<IAggregate>()
-			.Where(e => e.Entity.DomainEvents.Any())
-			.Select(e => e.Entity);
+			.Where(a => a.Entity.DomainEvents.Any())
+			.Select(a => a.Entity);
 
 		var domainEvents = aggregates
-			.SelectMany(e => e.DomainEvents)
+			.SelectMany(a => a.DomainEvents)
 			.ToList();
 
-		aggregates.ToList().ForEach(aggregate => aggregate.ClearDomainEvents());
+		aggregates.ToList().ForEach(a => a.ClearDomainEvents());
 
 		foreach (var domainEvent in domainEvents)
 		{
