@@ -9,7 +9,7 @@ public class DispatchDomainEventsInterceptor(IMediator mediator)
 	{
 		DispatchDomainEvents(eventData.Context).GetAwaiter().GetResult();
 		return base.SavingChanges(eventData, result);
-	}
+	}	
 
 	public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
 	{
@@ -33,6 +33,8 @@ public class DispatchDomainEventsInterceptor(IMediator mediator)
 		aggregates.ToList().ForEach(a => a.ClearDomainEvents());
 
 		foreach (var domainEvent in domainEvents)
+		{
 			await mediator.Publish(domainEvent);
+		}
 	}
 }

@@ -58,7 +58,7 @@ public class Order : Aggregate<OrderId>
         _totalPrice = _orderItems.Sum(i => i.Price * i.Quantity);
     }
 
-    public void Remove(ProductId productId)
+	public void Remove(ProductId productId)
     {
         var orderItem = _orderItems.FirstOrDefault(item => item.ProductId.Equals(productId));
         if (orderItem is not null)

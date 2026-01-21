@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Ordering.Infrastructure.Data.Interceptors;
+
 public class AuditableEntityInterceptor : SaveChangesInterceptor
 {
 	public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
@@ -44,4 +45,5 @@ public static class Extensions
 			r.TargetEntry != null &&
 			r.TargetEntry.Metadata.IsOwned() &&
 			(r.TargetEntry.State == EntityState.Added || r.TargetEntry.State == EntityState.Modified));
+	
 }
