@@ -1,4 +1,6 @@
-﻿namespace Ordering.API;
+﻿using Carter;
+
+namespace Ordering.API;
 
 public static class DependencyInjection
 {
@@ -11,7 +13,7 @@ public static class DependencyInjection
         // Add other necessary services for the API layer
         // services.AddAuthentication();
         // services.AddAuthorization();
-        // services.AddCarter();
+        services.AddCarter();
         return services;
     }
 
@@ -26,7 +28,7 @@ public static class DependencyInjection
         // app.MapControllers();
 
         // Add Carter endpoints if using Carter
-        // app.MapCarter();
+        app.MapCarter();
         return app;
     }
 }
