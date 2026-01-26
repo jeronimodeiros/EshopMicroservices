@@ -1,32 +1,34 @@
-﻿namespace Ordering.API;
+﻿using BuildingBlocks.Exceptions.Handler;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Configuration;
+
+namespace Ordering.API;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddApiServices(this IServiceCollection services)
-    {
-        // Register API services here
-        // Example: services.AddControllers();
-        // services.AddSwaggerGen();
+	public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration configuration)
+	{
+		services.AddCarter();
 
-        // Add other necessary services for the API layer
-        // services.AddAuthentication();
-        // services.AddAuthorization();
-        // services.AddCarter();
-        return services;
-    }
+		services.AddExceptionHandler<CustomExceptionHandler>();
+		services.AddHealthChecks()
+			.AddSqlServer(configuration.GetConnectionString("Database")!);
 
-    public static WebApplication UseApiServices(this WebApplication app)
-    {
-        // Configure API middleware here
-        // Example: app.UseSwagger();
-        // app.UseSwaggerUI();
-        // Add other necessary middleware for the API layer
-        // app.UseAuthentication();
-        // app.UseAuthorization();
-        // app.MapControllers();
+		return services;
+	}
 
-        // Add Carter endpoints if using Carter
-        // app.MapCarter();
-        return app;
-    }
+	public static WebApplication UseApiServices(this WebApplication app)
+	{
+		app.MapCarter();
+
+		app.UseExceptionHandler(options => { });
+		app.UseHealthChecks("/health",
+			new HealthCheckOptions
+			{
+				ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+			});
+
+		return app;
+	}
 }
